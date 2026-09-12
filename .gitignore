@@ -1,0 +1,42 @@
+# Dependencies and local toolchains (installed by npm ci / Docker)
+node_modules/
+.npm-cache/
+.tools/
+
+# Generated TypeScript and Substreams builds
+dist/
+/builds/
+target/
+*.tsbuildinfo
+
+# Local credentials; keep the setup template for running and judging
+.env
+.env.*
+!.env.example
+
+# Generated test results, logs, and audit reports
+coverage/
+.nyc_output/
+test-results/
+*.log
+/audit-report.json
+
+# Local caches, scratch files, and editor / agent settings
+.cache/
+/tmp/
+/temp/
+.vscode/
+.idea/
+.codex/
+.agents/
+*.swp
+*.swo
+*~
+
+# Operating-system metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Keep source, migrations, runtime skills, scripts, examples, tests, docs,
+# CI / Docker configuration, .npmrc, and dependency lockfiles in Git.

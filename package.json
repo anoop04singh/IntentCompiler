@@ -1,0 +1,58 @@
+{
+  "name": "graphrail",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "start": "node dist/src/main.js",
+    "worker": "tsx src/worker-main.ts",
+    "worker:start": "node dist/src/worker-main.js",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "db:migrate": "tsx scripts/migrate.ts",
+    "setup:check": "tsx scripts/doctor.ts",
+    "setup:hedera": "tsx scripts/setup-hedera.ts",
+    "setup:slot": "tsx scripts/add-slot.ts",
+    "example:agent": "tsx examples/agent.ts",
+    "example:generate": "tsx scripts/generate-example.ts",
+    "job:retry": "tsx scripts/retry-job.ts",
+    "setup:market": "tsx scripts/setup-market.ts",
+    "setup:storage": "tsx scripts/setup-storage.ts",
+    "format": "prettier --write src scripts tests examples",
+    "deployment:resume": "tsx scripts/reconcile-deployment.ts"
+  },
+  "dependencies": {
+    "@hiero-ledger/sdk": "^2.80.0",
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "@x402/core": "^2.25.0",
+    "@x402/hedera": "^2.25.0",
+    "@x402/mcp": "^2.25.0",
+    "dotenv": "^17.2.3",
+    "ethers": "^6.15.0",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.2.1",
+    "graphql": "^16.11.0",
+    "postgres": "^3.4.7",
+    "yaml": "^2.8.1",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.3.14",
+    "@types/express": "^5.0.5",
+    "@types/node": "^22.19.0",
+    "prettier": "^3.9.6",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  },
+  "overrides": {
+    "@grpc/grpc-js": "^1.14.4",
+    "protobufjs@>=8.0.0 <8.8.0": "8.8.0",
+    "ws": "^8.21.0"
+  }
+}

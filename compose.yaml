@@ -1,0 +1,25 @@
+services:
+  api:
+    build:
+      context: .
+      target: api
+    env_file: .env
+    environment:
+      HOST: 0.0.0.0
+    ports: ["127.0.0.1:3000:3000"]
+    restart: unless-stopped
+    init: true
+  worker:
+    build:
+      context: .
+      target: worker
+    env_file: .env
+    environment:
+      BUILD_ROOT: /app/builds
+    volumes: ["builds:/app/builds"]
+    restart: unless-stopped
+    init: true
+    cpus: 2
+    mem_limit: 4g
+volumes:
+  builds:

@@ -1,0 +1,9 @@
+node_modules
+.git
+.env
+.env.*
+.tools
+.npm-cache
+builds
+dist
+audit-report.json
