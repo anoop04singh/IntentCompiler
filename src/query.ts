@@ -1,5 +1,6 @@
 import { parse, visit, Kind, buildSchema, validate, execute } from "graphql";
 import type { DB } from "./db.js";
+import { transaction } from "./db.js";
 import { snake } from "./spec.js";
 export function identifier(v: string) {
   if (!/^[a-z_][a-z0-9_]{0,62}$/.test(v))
@@ -85,7 +86,7 @@ export async function readSql(
     throw new Error("Invalid pipeline schema");
   const { schema, doc } = validateQuery(query, sdl, variables);
   const root: Record<string, unknown> = {};
-  return db.begin(async (tx) => {
+  return transaction(db, async (tx) => {
     await tx`set local statement_timeout='15s'`;
     await tx`set transaction read only`;
     for (const e of definitions(sdl)) {

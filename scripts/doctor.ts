@@ -21,8 +21,7 @@ for (const name of required) {
 for (const binary of [
   "cargo",
   process.env.SUBSTREAMS_BIN || "substreams",
-  "protoc",
-  "buf",
+  process.env.PROTOC || "protoc",
 ]) {
   const r = spawnSync(binary, ["--version"], {
     encoding: "utf8",

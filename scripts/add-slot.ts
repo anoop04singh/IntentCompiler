@@ -11,9 +11,7 @@ const env = z
     SINK_DB_PORT: z.coerce.number().int().default(5432),
     SINK_DB_USER: z.string().min(1),
     SINK_DB_NAME: z.string().default("postgres"),
-    SINK_NETWORK: z
-      .enum(["mainnet", "base", "arbitrum-one", "matic", "bsc"])
-      .default("mainnet"),
+    SINK_NETWORK: z.literal("sepolia").default("sepolia"),
   })
   .parse(process.env);
 const db = database({

@@ -24,7 +24,8 @@
     "setup:market": "tsx scripts/setup-market.ts",
     "setup:storage": "tsx scripts/setup-storage.ts",
     "format": "prettier --write src scripts tests examples",
-    "deployment:resume": "tsx scripts/reconcile-deployment.ts"
+    "deployment:resume": "tsx scripts/reconcile-deployment.ts",
+    "setup:buyer": "tsx scripts/setup-buyer.ts"
   },
   "dependencies": {
     "@hiero-ledger/sdk": "^2.80.0",

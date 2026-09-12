@@ -5,8 +5,12 @@ import { validateQuery } from "../src/query.js";
 import { checkOutput } from "../src/output-check.js";
 import { usdc } from "../examples/usdc.js";
 import YAML from "yaml";
+import { readFileSync } from "node:fs";
 
 describe("coverage and compiler", () => {
+  it("rejects mainnet definitions in this testnet-only deployment", () => {
+    expect(() => validateDefinition({ ...usdc, network: "mainnet" })).toThrow();
+  });
   it("reuses equivalent definitions without merging different coverage", () => {
     const d = validateDefinition(usdc);
     expect(fingerprint(d)).toBe(
@@ -17,12 +21,12 @@ describe("coverage and compiler", () => {
             x.toUpperCase().replace("0X", "0x"),
           ),
           abiSource: "https://example.com/abi",
-          testStartBlock: 19000001,
+          testStartBlock: 11686715,
         }),
       ),
     );
     expect(fingerprint(d)).not.toBe(
-      fingerprint(validateDefinition({ ...usdc, startBlock: 18000000 })),
+      fingerprint(validateDefinition({ ...usdc, startBlock: 11000000 })),
     );
   });
   it("rejects lossy indexed dynamic values and unsupported intents", () => {
@@ -90,11 +94,17 @@ describe("bounded queries", () => {
   );
 });
 describe("output quality", () => {
+  it("validates actual Sepolia v4 stdout using the value field", () => {
+    const fixture = JSON.parse(
+      readFileSync("tests/fixtures/sepolia-db-out.json", "utf8"),
+    );
+    expect(checkOutput(JSON.stringify(fixture), usdc).rows).toBe(3);
+  });
   it("never treats empty output as deployable", () =>
     expect(() => checkOutput("{}", usdc)).toThrow("every event"));
   it("validates typed entity identity and fields", () => {
     const values = {
-      block_number: "19000000",
+      block_number: "11686714",
       timestamp: "1700000000",
       transaction_hash: "0x" + "a".repeat(64),
       log_index: "0",

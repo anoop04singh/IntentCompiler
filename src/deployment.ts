@@ -70,6 +70,8 @@ export class Market {
   }
 }
 export function deploymentRequest(slot: Row, d: Definition, url: string) {
+  if (d.network !== "sepolia")
+    throw new Error("Only Sepolia testnet pipelines may be deployed");
   if (!slot.secret_ready)
     throw new Error("Hosted database secret has not been staged");
   const u = new URL(url);
@@ -84,7 +86,7 @@ export function deploymentRequest(slot: Row, d: Definition, url: string) {
     throw new Error("Invalid hosted database configuration");
   return {
     deployment_id: slot.hosted_id ?? slot.deployment_id,
-    name: `GraphRail ${slot.pipeline_id}`,
+    name: `GraphRail ${slot.pipeline_id ?? slot.id}`,
     use_stored_secret: true,
     deployment_request: {
       sink_sql_deployment: {

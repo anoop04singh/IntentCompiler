@@ -228,6 +228,7 @@ export function createMcp(catalog: Catalog) {
 }
 export function createApp(c: Config, catalog: Catalog) {
   const app = express();
+  if (c.TRUST_LOOPBACK_PROXY) app.set("trust proxy", "loopback");
   app.disable("x-powered-by");
   app.use(express.json({ limit: "128kb" }));
   const allowed = new Set(c.ALLOWED_ORIGINS.split(",").map((s) => s.trim()));

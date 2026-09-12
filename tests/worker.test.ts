@@ -44,7 +44,7 @@ let f: Awaited<ReturnType<typeof testDB>>,
   deploy: any,
   state: any;
 const fields = {
-  block_number: "19000000",
+  block_number: "11686714",
   timestamp: "1700000000",
   transaction_hash: "0x" + "a".repeat(64),
   log_index: "0",
@@ -74,7 +74,7 @@ beforeEach(async () => {
   cat = new Catalog(f.db, c, payments);
   worker = new Worker(f.db, c, payments);
   p = await cat.create("Track USDC Transfer events", usdc);
-  await f.db`insert into graphrail.slots(id,deployment_id,network,db_schema,postgres_config,secret_ready,pipeline_id) values(${randomUUID()},'hosted-test','mainnet',${schema},${f.db.json({ server: "db.test.supabase.co", port: 5432, user: "postgres", database: "postgres", schema, sslmode: "require" })},true,${p.pipelineId})`;
+  await f.db`insert into graphrail.slots(id,deployment_id,network,db_schema,postgres_config,secret_ready,pipeline_id) values(${randomUUID()},'hosted-test','sepolia',${schema},${f.db.json({ server: "db.test.supabase.co", port: 5432, user: "postgres", database: "postgres", schema, sslmode: "require" })},true,${p.pipelineId})`;
   await f.db`update graphrail.pipelines set state='queued' where id=${p.pipelineId}`;
   await f.db`insert into graphrail.jobs(id,pipeline_id)values(${randomUUID()},${p.pipelineId})`;
   vi.mocked(run).mockImplementation(async (_bin, args, opts) => {
@@ -91,7 +91,7 @@ beforeEach(async () => {
     deploymentState: {
       replica: "1",
       healthyReplicas: "1",
-      executionStates: [{ currentBlock: "19000100", state: "STATE_LIVE" }],
+      executionStates: [{ currentBlock: "11686814", state: "STATE_LIVE" }],
     },
   });
 });
@@ -129,7 +129,7 @@ it("builds and deploys asynchronously, lists only flushed data, and serves exact
     f.db,
     schema,
     p.schema,
-    '{ transfers(first:1,where:{blockNumber_gte:"19000000"}) { id arg_value blockNumber } }',
+    '{ transfers(first:1,where:{blockNumber_gte:"11686714"}) { id arg_value blockNumber } }',
   )) as any;
   expect(result.transfers[0].arg_value).toBe(fields.arg_value);
   expect(result.transfers[0].blockNumber).toBe(fields.block_number);

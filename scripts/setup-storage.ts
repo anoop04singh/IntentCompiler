@@ -35,7 +35,7 @@ if (existing.ok) {
       id: env.PACKAGE_BUCKET,
       name: env.PACKAGE_BUCKET,
       public: true,
-      file_size_limit: 100000000,
+      file_size_limit: 10000000,
       allowed_mime_types: ["application/octet-stream"],
     }),
     signal: AbortSignal.timeout(15000),

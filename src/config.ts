@@ -8,6 +8,7 @@ const schema = z.object({
   HOST: z.string().default("127.0.0.1"),
   PUBLIC_URL: z.string().url().default("http://localhost:3000"),
   ALLOWED_ORIGINS: z.string().default("http://localhost:3000"),
+  TRUST_LOOPBACK_PROXY: bool.default("false"),
   DATABASE_URL: z.string().min(1),
   DATABASE_SSL: bool.default("true"),
   HEDERA_NETWORK: z.literal("hedera:testnet").default("hedera:testnet"),
@@ -16,8 +17,7 @@ const schema = z.object({
   HEDERA_OPERATOR_KEY: z.string().default(""),
   HEDERA_HCS_TOPIC_ID: z.string().default(""),
   BLOCKY_FACILITATOR_URL: z
-    .string()
-    .url()
+    .literal("https://api.testnet.blocky402.com")
     .default("https://api.testnet.blocky402.com"),
   BLOCKY_API_KEY: z.string().default(""),
   PAYMENT_ASSET: z
@@ -29,6 +29,9 @@ const schema = z.object({
   COMMISSIONING_ENABLED: bool.default("false"),
   SUBSTREAMS_API_KEY: z.string().default(""),
   SUBSTREAMS_BIN: z.string().default("substreams"),
+  SUBSTREAMS_ENDPOINT: z
+    .literal("sepolia.eth.streamingfast.io:443")
+    .default("sepolia.eth.streamingfast.io:443"),
   SUPABASE_URL: z.string().default(""),
   SUPABASE_SERVICE_ROLE_KEY: z.string().default(""),
   PACKAGE_BUCKET: z

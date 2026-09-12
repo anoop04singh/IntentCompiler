@@ -1,9 +1,9 @@
 # Live acceptance after configuration
 
-No live deployment, ledger settlement or Supabase migration has been claimed by local tests. Use testnet payments. StreamingFast hosted compute can still be billable.
+See verification.md for observed live results. The checklist below also includes failure/reorg scenarios beyond the initial smoke test. Use Sepolia data and Hedera testnet payments. StreamingFast hosted compute can still be billable.
 
 1. Configure `.env`, install the private migration and package bucket, and fund/configure Hedera testnet and HCS. Review the stdout-only example `substreams run` sample before first hosting, following the bundled hosted-sink skill. Verify the actual decoded amounts, addresses, selected events and range.
-2. Complete Market browser login and prepare a fresh Ethereum hosted slot. Save the password on its secret page and confirm once. Run `setup:check` inside the worker environment. Enable commissioning and expose the API through HTTPS.
+2. Complete Market browser login and prepare a fresh Sepolia hosted slot. Save the password on its secret page and confirm once. Run `setup:check` inside the worker environment. Enable commissioning and expose the API through HTTPS.
 3. Connect a payment-enabled agent with a spending ceiling covering both fees. A free intent/definition call must show coverage, both prices, capacity and an expiring plan, with no job or ledger transaction.
 4. Commission without payment: expect the structured x402 challenge containing the network, recipient, asset, amount and discovered Blocky fee payer. Sign locally and retry; record paymentId, jobId, pipelineId and settlement transaction.
 5. Retry the same signed request: expect the same job and no second settlement. Reuse its payment with a different request: expect rejection.

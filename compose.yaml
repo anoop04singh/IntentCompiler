@@ -16,6 +16,9 @@ services:
     env_file: .env
     environment:
       BUILD_ROOT: /app/builds
+      SUBSTREAMS_BIN: substreams
+      PROTOC: /usr/bin/protoc
+      CARGO_HOME: /opt/cargo
     volumes: ["builds:/app/builds"]
     restart: unless-stopped
     init: true

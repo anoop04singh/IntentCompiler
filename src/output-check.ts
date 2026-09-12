@@ -17,7 +17,7 @@ export function checkOutput(text: string, d: Definition, blocks = 100) {
         const fields = new Map<string, string>(
           (change.fields ?? []).map((f: any) => [
             f.name,
-            f.newValue ?? f.new_value ?? "",
+            f.value ?? f.newValue ?? f.new_value ?? "",
           ]),
         );
         for (const name of [

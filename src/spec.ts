@@ -19,7 +19,7 @@ export const eventSchema = z
   .strict();
 export const definitionSchema = z
   .object({
-    network: z.enum(["mainnet", "base", "arbitrum-one", "matic", "bsc"]),
+    network: z.literal("sepolia"),
     contracts: z
       .array(z.string().regex(/^0x[0-9a-fA-F]{40}$/))
       .min(1)

@@ -1,0 +1,68 @@
+{
+  "verifiedAt": "2026-09-12T14:44:11.794Z",
+  "mcpUrl": "https://diamonds-releases-modification-sponsored.trycloudflare.com/mcp",
+  "health": {
+    "service": "GraphRail",
+    "status": "ok",
+    "commissioningEnabled": false
+  },
+  "tools": [
+    "create_pipeline",
+    "list_pipelines",
+    "commission_pipeline",
+    "get_pipeline_status",
+    "query_pipeline",
+    "get_payment_receipt",
+    "search_substreams_packages"
+  ],
+  "resourceCount": 21,
+  "workflowReadable": true,
+  "pipeline": {
+    "id": "dd1d0c1b-5585-4091-9351-4486a8714a53",
+    "state": "failed",
+    "error_code": "INDEXING_ERROR",
+    "package_hash": "e528f58e6a3a639d7f065ba551e61500b532fb67fb1d632ff4f9a18851cc37f4",
+    "package_url": "https://araslrbjkpxlkonkpaxk.supabase.co/storage/v1/object/public/graphrail-packages/e528f58e6a3a639d7f065ba551e61500b532fb67fb1d632ff4f9a18851cc37f4.spkg",
+    "indexed_block": "0"
+  },
+  "payment": {
+    "id": "2b44ea1c-ee74-4fbd-a385-cc1b478083da",
+    "state": "settled",
+    "kind": "commission",
+    "settlement": {
+      "payer": "0.0.10496620",
+      "network": "hedera:testnet",
+      "success": true,
+      "transaction": "0.0.7162784@1789222750.261013888"
+    },
+    "sequence_number": "1",
+    "audit_state": "recorded"
+  },
+  "ledger": {
+    "result": "SUCCESS",
+    "transactionId": "0.0.7162784-1789222750-261013888",
+    "sellerCreditTinybar": 100000000
+  },
+  "hcs": {
+    "topicId": "0.0.10496618",
+    "sequenceNumber": 1,
+    "message": {
+      "v": 1,
+      "id": "e710c19d-fd70-4c81-97aa-118ff6f27c12",
+      "type": "commission",
+      "payer": "0.0.10496620",
+      "network": "hedera:testnet",
+      "paymentId": "2b44ea1c-ee74-4fbd-a385-cc1b478083da",
+      "pipelineId": "dd1d0c1b-5585-4091-9351-4486a8714a53",
+      "requestHash": "0b455b78076e78744a3a2bba3553e991ebfcc0d5ad0284cf7080334b15017a70",
+      "transaction": "0.0.7162784@1789222750.261013888"
+    }
+  },
+  "hostedState": {},
+  "catalog": {
+    "pipelines": [],
+    "paymentNetwork": "hedera:testnet",
+    "asset": "0.0.0"
+  },
+  "paidQueryPerformed": false
+}

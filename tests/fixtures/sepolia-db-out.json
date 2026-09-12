@@ -1,0 +1,152 @@
+{
+  "@module": "db_out",
+  "@block": 11686714,
+  "@type": "sf.substreams.sink.database.v1.DatabaseChanges",
+  "@data": {
+    "tableChanges": [
+      {
+        "table": "transfers",
+        "pk": "0x633863ed4cef69fa1cd04b677c589390e4724db6f8531f59f5934e2c07a58baa-0",
+        "operation": "OPERATION_CREATE",
+        "fields": [
+          {
+            "name": "arg_to",
+            "value": "0x01acf14e0cf1511235aef548cb0eb563e817e8bf",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "block_number",
+            "value": "11686714",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "transaction_hash",
+            "value": "0x633863ed4cef69fa1cd04b677c589390e4724db6f8531f59f5934e2c07a58baa",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "log_index",
+            "value": "0",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "arg_from",
+            "value": "0x3c3380cdfb94dfeeaa41cad9f58254ae380d752d",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "timestamp",
+            "value": "1789188996",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "arg_value",
+            "value": "20000000",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "contract",
+            "value": "0x1c7d4b196cb0c7b01d743fbc6116a902379c7238",
+            "updateOp": "UPDATE_OP_SET"
+          }
+        ]
+      },
+      {
+        "table": "transfers",
+        "pk": "0xce3bfceb9af19577eec3c5c406a38f21e1f44d87acbc628a278f2a221261b5fe-0",
+        "ordinal": "1",
+        "operation": "OPERATION_CREATE",
+        "fields": [
+          {
+            "name": "log_index",
+            "value": "0",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "block_number",
+            "value": "11686714",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "arg_to",
+            "value": "0x9321348143b04c2e06ea18177ae5fc5b4fbee885",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "timestamp",
+            "value": "1789188996",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "transaction_hash",
+            "value": "0xce3bfceb9af19577eec3c5c406a38f21e1f44d87acbc628a278f2a221261b5fe",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "contract",
+            "value": "0x1c7d4b196cb0c7b01d743fbc6116a902379c7238",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "arg_from",
+            "value": "0x3c3380cdfb94dfeeaa41cad9f58254ae380d752d",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "arg_value",
+            "value": "20000000",
+            "updateOp": "UPDATE_OP_SET"
+          }
+        ]
+      },
+      {
+        "table": "transfers",
+        "pk": "0xec1cc87c9c35c89e23b9dda580888c6ff68a68934005e9709f62aa6f26a0b3e7-0",
+        "ordinal": "2",
+        "operation": "OPERATION_CREATE",
+        "fields": [
+          {
+            "name": "log_index",
+            "value": "0",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "timestamp",
+            "value": "1789188996",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "transaction_hash",
+            "value": "0xec1cc87c9c35c89e23b9dda580888c6ff68a68934005e9709f62aa6f26a0b3e7",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "contract",
+            "value": "0x1c7d4b196cb0c7b01d743fbc6116a902379c7238",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "arg_value",
+            "value": "1822366",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "arg_to",
+            "value": "0x5e7640d402a344c4552fd55c8465744f3bf2b2b5",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "arg_from",
+            "value": "0x93083f60f1877a6ba974d5ed88bb74943deb8390",
+            "updateOp": "UPDATE_OP_SET"
+          },
+          {
+            "name": "block_number",
+            "value": "11686714",
+            "updateOp": "UPDATE_OP_SET"
+          }
+        ]
+      }
+    ]
+  }
+}

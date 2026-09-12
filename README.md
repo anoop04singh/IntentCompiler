@@ -4,7 +4,7 @@
 
 There is **no Anthropic key, hosted model, or MCP sampling requirement**. This is a remote Streamable HTTP MCP server at `/mcp`. One user prompt drives several agent tool calls; the server itself does not infer contract ABIs from prose. Paid tools require an x402-capable MCP client or wallet helper.
 
-The implementation is ready for configuration and live acceptance. No live deployment, database migration, HCS submission, or payment settlement has been performed without your credentials.
+This checkout is configured for testnet acceptance. Supabase setup, live Sepolia output review, Market authentication, password staging, and a real x402 commissioning settlement have been verified. See [verification.md](docs/verification.md) for the current deployment and query results.
 
 ## Deployment choice
 
@@ -25,7 +25,7 @@ StreamingFast runs the sink; Supabase stores both the marketplace catalog and in
 | Registration | Provider health and progress plus actual flushed rows determine readiness; HCS provenance outbox |
 | Queries | Free discovery, paid bounded GraphQL-to-SQL reads, settlement and eventual HCS receipt |
 
-The initial compiler supports scalar EVM events on Ethereum mainnet, Base, Arbitrum One, Polygon and BSC, subject to provider network support and prepared capacity. It preserves uint256/int256 values as decimal strings and `NUMERIC(78,0)`. Addresses/bytes use hex text. Arrays, tuples, anonymous/overloaded events, indexed dynamic fields, custom stores, aggregates and RPC enrichment require compiler extensions and are rejected before payment. This is not unrestricted natural-language program generation.
+The compiler currently accepts **Ethereum Sepolia only**. Configuration rejects mainnet pipelines, non-testnet Hedera payments, and a non-testnet Blocky facilitator. Hosted capacity must be prepared for Sepolia. It preserves uint256/int256 values as decimal strings and `NUMERIC(78,0)`. Addresses/bytes use hex text. Arrays, tuples, anonymous/overloaded events, indexed dynamic fields, custom stores, aggregates and RPC enrichment require compiler extensions and are rejected before payment. This is not unrestricted natural-language program generation.
 
 ## Configure
 
@@ -39,7 +39,7 @@ The initial compiler supports scalar EVM events on Ethereum mainnet, Base, Arbit
 
 ### First hosted-sink setup
 
-Before first live hosting, use the bundled hosted-sink skill's output-review step: inspect a short **`substreams run` stdout sample** and confirm its data quality, or explicitly choose to skip that review. Compiling alone does not verify on-chain coverage. This is still outstanding because no streaming credentials were supplied. It does not require writing event data to a local database.
+Before first live hosting, use the bundled hosted-sink skill's output-review step: inspect a short **`substreams run` stdout sample** and confirm its data quality, or explicitly choose to skip that review. Compiling alone does not verify on-chain coverage. The included Sepolia USDC sample was reviewed and approved: 205 Transfer events across 100 blocks. It does not require writing event data to a local database.
 
 The example can be prepared without credentials:
 
@@ -49,7 +49,7 @@ cd builds/example-usdc
 cargo test
 cargo build --release --target wasm32-unknown-unknown
 substreams pack substreams.yaml -o pipeline.spkg
-substreams run pipeline.spkg db_out --network mainnet -s 19000000 -t +100 -o jsonl
+substreams run pipeline.spkg db_out --network sepolia -e sepolia.eth.streamingfast.io:443 -s 11686714 -t +100 -o jsonl
 ```
 
 After the output review, prepare hosted capacity from the repository root:
@@ -71,7 +71,7 @@ Run `npm run setup:check` in the worker environment, then set `COMMISSIONING_ENA
 
 ## Run and connect
 
-The worker needs Linux amd64 with Rust, `wasm32-unknown-unknown`, protoc, buf, and Substreams CLI. Docker and CI pin the CLI to v1.22.0. Graph CLI is not required.
+The supplied Docker worker uses Linux amd64 with Rust, `wasm32-unknown-unknown`, protoc, buf, and Substreams CLI. Docker and CI pin the CLI to v1.22.0. A Windows worker has also been exercised with explicit SUBSTREAMS_BIN, PROTOC and CARGO_HOME paths. Graph CLI is not required.
 
 ```sh
 docker compose build
@@ -87,9 +87,9 @@ npm start
 npm run worker:start
 ```
 
-Expose port 3000 through your hosting platform's HTTPS reverse proxy. Set `PUBLIC_URL`, `ALLOWED_ORIGINS`, and preserve the Host header. Compose binds the API to loopback; the worker is private. Mount persistent build storage. The repository does not provision a public domain or hosting account. Configure proxy trust and a shared rate limiter when scaling.
+Expose port 3000 through your hosting platform's HTTPS reverse proxy. Set `PUBLIC_URL`, `ALLOWED_ORIGINS`, and preserve the Host header. Compose binds the API to loopback; the worker is private. Mount persistent build storage. The repository does not provision a public domain or hosting account. For cloudflared or another trusted proxy on this machine, set TRUST_LOOPBACK_PROXY=true; leave it false otherwise. Configure your actual proxy topology and a shared rate limiter when scaling.
 
-Connect any compatible MCP agent to `https://YOUR-DOMAIN/mcp`, read `graphrail://skills/workflow`, or invoke the `build_pipeline` prompt. The server bundles Substreams development, Ethereum, SQL, testing and hosted-sink skills plus reference resources.
+The current temporary test endpoint is `https://diamonds-releases-modification-sponsored.trycloudflare.com/mcp`. It requires this machine, the API and cloudflared to stay running; it is not durable hosting. Connect a compatible MCP agent using Streamable HTTP, read `graphrail://skills/workflow`, or invoke the `build_pipeline` prompt. The server bundles Substreams development, Ethereum, SQL, testing and hosted-sink skills plus reference resources.
 
 | Tool | Price | Result |
 | --- | --- | --- |
@@ -101,14 +101,14 @@ Connect any compatible MCP agent to `https://YOUR-DOMAIN/mcp`, read `graphrail:/
 | `get_payment_receipt(paymentId)` | Free | Settlement and eventual HCS receipt |
 | `search_substreams_packages(keyword)` | Free | Official registry suggestions for planning |
 
-`examples/usdc.ts` contains a complete definition. `examples/agent.ts` demonstrates the official x402 MCP client with local Hedera signing and a cumulative spending ceiling. It does not implement an LLM; your agent supplies the reasoning. A generic MCP connection alone cannot sign payments. Wallet private keys never belong in tool arguments. x402 challenges use structured MCP results and payment metadata, rather than disrupting the transport with a raw HTTP 402.
+`examples/usdc.ts` contains a complete definition. `examples/agent.ts` demonstrates the official x402 MCP client with local Hedera signing and a cumulative spending ceiling. It explicitly allows testnet HBAR in x402 spendControls, checks the recipient, and caps total spending. Run npm run setup:buyer once to create/fund a separate test buyer. It does not implement an LLM; your agent supplies the reasoning. A generic MCP connection alone cannot sign payments. Wallet private keys never belong in tool arguments. x402 challenges use structured MCP results and payment metadata, rather than disrupting the transport with a raw HTTP 402.
 
 ### Query format
 
 Each catalog entity exposes a lower-camel singular root with `id`, and a plural root with `first` (default 25, maximum 100), `skip` (maximum 5000) and `where`. Filters support equality on all entity fields plus `blockNumber_gte` and `blockNumber_lte`. Results sort by block number and ID. There are no arbitrary SQL, mutations, joins, aggregates, fragments or introspection operations.
 
 ```graphql
-{ transfers(first: 10, where: {blockNumber_gte: "19000000"}) {
+{ transfers(first: 10, where: {blockNumber_gte: "11686714"}) {
   id blockNumber transactionHash contract arg_from arg_to arg_value
 } }
 ```
@@ -136,3 +136,7 @@ npm run example:generate
 ```
 
 Tests use the real migration in embedded PostgreSQL (PGlite), simulated advisory locks, mocked provider settlement/deployment, an actual remote MCP connection, and generated Rust decoder fixtures. See [acceptance.md](docs/acceptance.md) for live checks and [sources.md](docs/sources.md) for official references. Passing local tests is not evidence of live ledger settlement or hosted indexing.
+
+On Windows, start the worker with `scripts\start-worker-windows.cmd` after `npm run build`; it initializes the installed Visual Studio C++ toolchain before starting Node.
+
+**Current live blocker:** StreamingFast database initialization failed; the runner is paused and COMMISSIONING_ENABLED=false. See [provider-blocker.md](docs/provider-blocker.md). No service is advertised and no query fee has been charged.

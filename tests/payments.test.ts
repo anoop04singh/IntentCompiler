@@ -60,7 +60,7 @@ beforeEach(async () => {
     "Track USDC Transfer events",
     usdc,
   );
-  await fixture.db`insert into graphrail.slots(id,deployment_id,network,db_schema,postgres_config,secret_ready)values(${randomUUID()},'usdc','mainnet','gr_00000000000000000000000000000001','{}',true)`;
+  await fixture.db`insert into graphrail.slots(id,deployment_id,network,db_schema,postgres_config,secret_ready)values(${randomUUID()},'usdc','sepolia','gr_00000000000000000000000000000001','{}',true)`;
 });
 afterEach(async () => {
   vi.restoreAllMocks();

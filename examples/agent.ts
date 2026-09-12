@@ -24,6 +24,15 @@ const client = createx402MCPClient({
     { network: "hedera:testnet", client: new ExactHederaScheme(signer) },
   ],
   autoPayment: true,
+  spendControls: {
+    allowedAssets: [
+      {
+        network: "hedera:testnet",
+        asset: "0.0.0",
+        maxAmountPerPayment: "100000000",
+      },
+    ],
+  },
   onPaymentRequested: async ({ paymentRequired }) => {
     const req = paymentRequired.accepts[0];
     if (
@@ -52,7 +61,8 @@ try {
   console.log(data(await client.callTool("list_pipelines", {})));
   const plan = data(
     await client.callTool("create_pipeline", {
-      prompt: "Index USDC Transfer events on Ethereum from block 19000000",
+      prompt:
+        "Index USDC Transfer events on Ethereum Sepolia from block 11686714",
       definition: usdc,
     }),
   );

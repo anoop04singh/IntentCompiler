@@ -1,22 +1,29 @@
-# Local verification — 2026-09-11
+# Live verification — 2026-09-12
+
+**Not yet a working indexed service:** hosted database initialization failed. The runner is paused, new commissioning is disabled, and no paid query was attempted. See [provider-blocker.md](provider-blocker.md) and [live-evidence.json](live-evidence.json).
 
 | Check | Observed result |
 | --- | --- |
-| TypeScript build/type checking | Passed |
-| Automated tests | 27 passed across 5 files |
-| Generated USDC Rust native tests | 2 passed: empty block and independently encoded ABI decoding with full-width integer/reverted-call checks |
-| Generated WASM release build | Passed; 376,917 bytes |
-| Official Substreams v1.22.0 pack | Passed; 516,826-byte `.spkg` |
-| Official package inspection | db_out emits DatabaseChanges; PostgreSQL Service config embeds 362-byte schema.sql |
-| Remote MCP protocol | Exercised through an actual local HTTP client/server connection |
-| Database lifecycle | Real migration and SQL queries in PGlite; provider calls mocked |
-| Payment behavior | Mocked verification/settlement ordering, replay rejection, durable enqueue and ambiguous-payment handling |
-| Hosted lifecycle | Mocked provider; failed output blocked, uncertain submission not repeated, catalog waits for flushed rows |
+| TypeScript build | Passed |
+| Automated tests | 33 passed across 7 files, including reserved-connection rollback and mainnet configuration rejection |
+| Supabase | Private catalog migration installed; credentials verified; package bucket created |
+| Generated Rust | Native decoder tests and WASM release build passed |
+| Live Substreams output | 205 Sepolia USDC Transfer events in blocks 11,686,714–11,686,813; user reviewed and approved |
+| Package publication | Public package downloaded and SHA-256 verified |
+| Market | Login, deployment ID, saved-password existence and hosted Deploy succeeded |
+| Hosted indexing | Runner failed looking for public.cursors despite private-schema config; database attachment returned HTTP 500 twice; runner paused |
+| Public HTTPS MCP | Seven tools, 21 resources, readable workflow; no ready services listed |
+| x402 / Blocky | Commission settled for 100,000,000 tinybar (1 test HBAR); Mirror Node confirms SUCCESS and seller credit |
+| HCS | Commission audit confirmed at topic 0.0.10496618, sequence 1 |
+| Paid query | Not run: no indexed data and service not ready |
 
-Example: `builds/example-usdc/pipeline.spkg`
+Pipeline: `dd1d0c1b-5585-4091-9351-4486a8714a53`.
+Commission receipt: `2b44ea1c-ee74-4fbd-a385-cc1b478083da`.
+Ledger transaction: `0.0.7162784@1789222750.261013888`.
+Package SHA-256: `e528f58e6a3a639d7f065ba551e61500b532fb67fb1d632ff4f9a18851cc37f4`.
 
-SHA-256: `d2ecdb381b24981465aac88b44857b758d3c8524987949e219c6d5970ec5a84a`
+Temporary MCP endpoint: `https://diamonds-releases-modification-sponsored.trycloudflare.com/mcp`. This requires the local machine, API and cloudflared process to remain running. It is not durable hosting. Quick Tunnels do not support SSE; GraphRail uses stateless Streamable HTTP with JSON responses.
 
-The Windows Substreams CLI was built from official v1.22.0 source for local packing. Deployment/CI target the supplied Linux worker image. Docker image execution was not verified because no running Docker daemon was available.
+The initial buyer attempt stopped before settlement because a reserved PostgreSQL connection lacked begin(). Its record was closed after checking the failure location, absence of a job/slot, and Mirror Node 404. The later commission is the only settled payment. Windows compiler startup was repaired and the same paid job retried without another fee.
 
-Not performed: Supabase production migration, live Substreams output review, Market login/secret staging/Deploy, Hedera settlement or HCS submission, public HTTPS hosting, and live reorg acceptance. These require operator configuration. See acceptance.md before claiming a live marketplace deployment.
+Docker execution, live reorg recovery, provider failure injection, completed hosted indexing and query settlement remain unverified. Mocked tests are not evidence of those outcomes.

@@ -37,7 +37,13 @@ export async function testDB() {
       throw e;
     }
   };
-  sql.reserve = async () => sql;
+  sql.reserve = async () => {
+    const reserved: any = (...args: any[]) => sql(...args);
+    reserved.unsafe = sql.unsafe;
+    reserved.json = sql.json;
+    reserved.release = () => {};
+    return reserved;
+  };
   sql.release = () => {};
   return { db: sql as DB, pg, close: () => pg.close() };
 }

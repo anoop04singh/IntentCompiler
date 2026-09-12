@@ -31,3 +31,5 @@ Bundled Substreams skills are StreamingFast-authored Apache-2.0 material. The SQ
 | [Supabase Storage uploads](https://supabase.com/docs/guides/storage/uploads/standard-uploads) | Content-addressed package upload and conflict handling |
 
 The output review, hosted billing, browser login and secret staging described in the operator guide follow the installed hosted-sink and Market API skills. No actual login, CreateDeployment or Deploy was executed during implementation without credentials.
+
+Live follow-up on 2026-09-12: see verification.md and provider-blocker.md for actual acceptance results. Additional official references: [Express proxy configuration](https://expressjs.com/en/guide/behind-proxies/) and [Cloudflare Quick Tunnels](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/do-more-with-tunnels/trycloudflare/).

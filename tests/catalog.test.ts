@@ -47,7 +47,7 @@ it("persists quotes and reuses normalized coverage", async () => {
 });
 it("does not expose endpoints, keys or unready pipelines", async () => {
   const p = (await catalog.create("Track USDC transfers", usdc)) as any;
-  await fixture.db`insert into graphrail.slots(id,deployment_id,network,db_schema,postgres_config,secret_ready,pipeline_id)values(${randomUUID()},'secret','mainnet','gr_00000000000000000000000000000001','{}',true,${p.pipelineId})`;
+  await fixture.db`insert into graphrail.slots(id,deployment_id,network,db_schema,postgres_config,secret_ready,pipeline_id)values(${randomUUID()},'secret','sepolia','gr_00000000000000000000000000000001','{}',true,${p.pipelineId})`;
   expect(await catalog.list()).toEqual([]);
   await fixture.db`update graphrail.pipelines set state='ready' where id=${p.pipelineId}`;
   const list = await catalog.list();

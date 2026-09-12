@@ -13,6 +13,7 @@ import type {
 import { ExactHederaScheme } from "@x402/hedera/exact/server";
 import type { Config } from "./config.js";
 import type { DB, Row } from "./db.js";
+import { transaction } from "./db.js";
 import { digest } from "./spec.js";
 
 export const result = (data: Record<string, unknown>, isError = false) => ({
@@ -239,7 +240,7 @@ export class Payments {
     }
   }
   async reserveSlot(pipelineId: string, paymentId: string, db: DB = this.db) {
-    await db.begin(async (tx) => {
+    await transaction(db, async (tx) => {
       const [p] =
         await tx`select * from graphrail.pipelines where id=${pipelineId} for update`;
       if (!p || p.state !== "awaiting_payment")
@@ -270,7 +271,7 @@ export class Payments {
     settlement: SettleResponse,
     db: DB = this.db,
   ) {
-    await db.begin(async (tx) => {
+    await transaction(db, async (tx) => {
       await tx`update graphrail.payments set state='settled',settlement=${tx.json(JSON.parse(JSON.stringify(settlement)))},updated_at=now() where id=${payment.id}`;
       if (payment.kind === "commission") {
         await tx`update graphrail.pipelines set state='queued',created_by=${payment.payer},updated_at=now() where id=${payment.pipeline_id} and state='awaiting_payment'`;

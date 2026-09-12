@@ -3,7 +3,7 @@ create schema if not exists graphrail;
 revoke all on schema graphrail from public, anon, authenticated;
 create table graphrail.pipelines (
  id uuid primary key, fingerprint text not null unique, description text not null,
- definition jsonb not null, entity_schema text not null, price text not null,
+ definition jsonb not null check(definition->>'network'='sepolia'), entity_schema text not null, price text not null,
  state text not null check (state in ('awaiting_payment','queued','building','testing','deploying','indexing','ready','failed')),
  created_by text, deployment_id text, package_hash text, package_url text, deployment_checked_at timestamptz, indexed_block bigint, error_code text,
  created_at timestamptz not null default now(), updated_at timestamptz not null default now()
@@ -13,7 +13,7 @@ create table graphrail.plans (
  commission_amount text not null, expires_at timestamptz not null, created_at timestamptz not null default now()
 );
 create table graphrail.slots (
- id uuid primary key, deployment_id text unique not null, network text not null,
+ id uuid primary key, deployment_id text unique not null, network text not null check(network='sepolia'),
  db_schema text unique not null, postgres_config jsonb not null, secret_ready boolean not null default false,
  pipeline_id uuid unique references graphrail.pipelines,
  reserved_until timestamptz

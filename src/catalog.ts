@@ -97,8 +97,9 @@ export class Catalog {
         "Commissioning is disabled until operator setup checks pass",
       );
     const [plan] = await this
-      .db`select p.*,q.state from graphrail.plans p join graphrail.pipelines q on q.id=p.pipeline_id where p.id=${planId}`;
+      .db`select p.*,q.state,q.definition from graphrail.plans p join graphrail.pipelines q on q.id=p.pipeline_id where p.id=${planId}`;
     if (!plan) throw new Error("Plan not found");
+    validateDefinition(plan.definition);
     if (
       plan.state === "awaiting_payment" &&
       new Date(plan.expires_at).getTime() < Date.now()
@@ -150,6 +151,7 @@ export class Catalog {
     const [p] = await this
       .db`select p.*,s.db_schema from graphrail.pipelines p join graphrail.slots s on s.pipeline_id=p.id where p.id=${pipelineId} and p.state='ready'`;
     if (!p) throw new Error("Pipeline is not ready");
+    validateDefinition(p.definition);
     validateQuery(query, p.entity_schema, variables);
     // Execute the read before charging; keep it in memory only. Invalid/failed SQL reads cost nothing.
     // Unpaid callers receive a challenge without querying the upstream service.

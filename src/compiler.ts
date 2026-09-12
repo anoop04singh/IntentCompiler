@@ -155,9 +155,10 @@ pub fn db_out(events: pb::Events) -> Result<DatabaseChanges, Error> {
     },
     network: d.network,
     imports: {
+      // v1.22 includes SQL Service descriptors. Importing the legacy SQL
+      // protodefs package duplicates its deprecated Service during live decoding.
       database:
         "https://github.com/streamingfast/substreams-sink-database-changes/releases/download/v4.0.0/substreams-sink-database-changes-v4.0.0.spkg",
-      sql: "https://github.com/streamingfast/substreams-sink-sql/releases/download/protodefs-v1.0.7/substreams-sink-sql-protodefs-v1.0.7.spkg",
     },
     protobuf: { files: ["events.proto"], importPaths: ["./proto"] },
     binaries: {
