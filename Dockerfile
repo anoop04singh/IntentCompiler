@@ -17,6 +17,7 @@ COPY .npmrc ./
 RUN npm ci --omit=dev && npm cache clean --force
 COPY --from=build /app/dist ./dist
 COPY skills ./skills
+COPY public ./public
 COPY supabase ./supabase
 USER node
 EXPOSE 3000

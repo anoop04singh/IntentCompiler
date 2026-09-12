@@ -89,7 +89,7 @@ npm run worker:start
 
 Expose port 3000 through your hosting platform's HTTPS reverse proxy. Set `PUBLIC_URL`, `ALLOWED_ORIGINS`, and preserve the Host header. Compose binds the API to loopback; the worker is private. Mount persistent build storage. The repository does not provision a public domain or hosting account. For cloudflared or another trusted proxy on this machine, set TRUST_LOOPBACK_PROXY=true; leave it false otherwise. Configure your actual proxy topology and a shared rate limiter when scaling.
 
-The current temporary test endpoint is `https://diamonds-releases-modification-sponsored.trycloudflare.com/mcp`. It requires this machine, the API and cloudflared to stay running; it is not durable hosting. Connect a compatible MCP agent using Streamable HTTP, read `graphrail://skills/workflow`, or invoke the `build_pipeline` prompt. The server bundles Substreams development, Ethereum, SQL, testing and hosted-sink skills plus reference resources.
+The current temporary test endpoint is `https://spatial-afterwards-shaved-scope.trycloudflare.com/mcp`. It requires this machine, the API and cloudflared to stay running; it is not durable hosting. Connect a compatible MCP agent using Streamable HTTP, read `graphrail://skills/workflow`, or invoke the `build_pipeline` prompt. The server bundles Substreams development, Ethereum, SQL, testing and hosted-sink skills plus reference resources.
 
 | Tool | Price | Result |
 | --- | --- | --- |
@@ -140,3 +140,14 @@ Tests use the real migration in embedded PostgreSQL (PGlite), simulated advisory
 On Windows, start the worker with `scripts\start-worker-windows.cmd` after `npm run build`; it initializes the installed Visual Studio C++ toolchain before starting Node.
 
 **Current live blocker:** StreamingFast database initialization failed; the runner is paused and COMMISSIONING_ENABLED=false. See [provider-blocker.md](docs/provider-blocker.md). No service is advertised and no query fee has been charged.
+
+
+## Landing page and agent quickstart
+
+The landing page is served by the same API at `/`. Run `npm run build` and `npm start`, then open http://localhost:3000/. The frontend lives in `public/`, requires no separate build, and is included in the API Docker image.
+
+Live statistics come from `/api/public/stats`: ready services, settled commissions, settled query purchases, payment volume and recorded HCS receipts. The server caches the explicit public projection for 15 seconds; the page refreshes every 30 seconds and labels stale data on failure. No database credentials, payment payloads or failed-intent descriptions are exposed.
+
+The connection panel generates Codex, Claude Code and Cursor snippets from the running `PUBLIC_URL`. Use the downloadable [agent setup guide](public/setup.md) for connection steps, free prompts, buyer setup, and self-hosting. Run `npm run example:discover` for a free SDK connection test. Paid calls need an x402 client or wallet helper; an ordinary MCP configuration alone cannot sign payments.
+
+Design follows the provided Optimus reference: Instrument Serif / Instrument Sans typography, warm off-white surfaces, fine grids and an animated ASCII sphere. Reduced-motion settings are respected. The live status accurately reflects the existing hosted-indexing blocker.

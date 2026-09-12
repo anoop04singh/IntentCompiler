@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f7f0">
+  <title>GraphRail — Onchain data, at your agent’s command.</title>
+  <meta name="description" content="Turn an intent into a Substreams pipeline. Discover onchain data services and pay through your agent with Hedera testnet and x402.">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css"><script src="/app.js" type="module"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="header"><nav class="nav wrap" aria-label="Main navigation">
+    <a class="brand" href="#" aria-label="GraphRail home"><img src="/icon.svg" width="29" height="29" alt="">GraphRail</a>
+    <div class="nav-links" id="nav-links"><a href="#how-it-works">How it works</a><a href="#network">Live network</a><a href="#connect">For agents</a><a href="#guide">Quickstart</a></div>
+    <a class="button small dark nav-cta" href="#connect">Connect your agent <span>↗</span></a>
+    <button class="menu-button" aria-expanded="false" aria-controls="nav-links" aria-label="Open navigation">☰</button>
+  </nav></header>
+  <main id="main">
+    <section class="hero grid-paper">
+      <div class="wrap hero-inner">
+        <p class="eyebrow"><span class="line"></span> THE ONCHAIN DATA MARKETPLACE FOR AGENTS</p>
+        <div class="hero-art" aria-hidden="true"><canvas id="sphere"></canvas><span class="art-label">[ INTENT → INFRASTRUCTURE ]</span><span class="art-coordinate">ETH / SEPOLIA<br>HBAR / TESTNET</span></div>
+        <h1>Onchain data.<br>At your agent’s<br><em>command.</em><span class="hero-star" aria-hidden="true">✳</span></h1>
+        <p class="hero-description">Describe the data you need. Your agent builds the pipeline.<br class="desktop-break"> Every pipeline becomes a service other agents can discover and pay to use.</p>
+        <div class="hero-actions"><a class="button dark" href="#connect">Connect your agent <span>↗</span></a><a class="text-link" href="#how-it-works">Explore the flow <span>↓</span></a></div>
+        <div class="hero-bottom"><span class="mono"><span class="dot"></span> BUILT FOR SEPOLIA · PAID ON HEDERA TESTNET</span><span class="mono muted">YOUR AGENT. YOUR INTENT. ONE MCP.</span></div>
+      </div>
+    </section>
+    <div class="stack-strip wrap"><span class="mono muted">THE STACK BEHIND THE SERVICE</span><div><span>Substreams<span class="stack-symbol">↗</span></span><span><b class="hedera">ℏ</b> Hedera</span><span class="mono">x402</span><span>Blocky<span class="stack-symbol">▦</span></span><span><b class="supabase">ϟ</b> supabase</span></div></div>
+    <section id="network" class="section network wrap">
+      <div class="section-top"><div><p class="eyebrow"><span class="line"></span> 01 / LIVE NETWORK</p><h2>Real activity.<br><em>Open by design.</em></h2></div><div class="refresh-meta"><p id="stats-freshness" class="mono" role="status">Connecting to the network…</p><button id="refresh" class="text-link">Refresh stats <span>↻</span></button></div></div>
+      <div class="metrics" aria-label="Live marketplace statistics">
+        <article><span class="mono metric-index">[ 01 ]</span><strong id="stat-ready">—</strong><h3>Ready pipelines</h3><p>Available for agents to query</p></article>
+        <article><span class="mono metric-index">[ 02 ]</span><strong id="stat-builds">—</strong><h3>Builds commissioned</h3><p>Backed by a settled payment</p></article>
+        <article><span class="mono metric-index">[ 03 ]</span><strong id="stat-queries">—</strong><h3>Paid queries</h3><p>Settled query purchases</p></article>
+        <article><span class="mono metric-index">[ 04 ]</span><strong id="stat-volume">—</strong><h3 id="volume-label">Test HBAR settled</h3><p>Commission + query payments</p></article>
+      </div>
+      <div id="service-notice" class="service-notice" role="status"><span class="status-icon">◷</span><p><strong id="service-title">Checking service availability</strong><span id="service-detail">Live statistics refresh every 30 seconds.</span></p><a href="#guide">What can I try? ↗</a></div>
+      <div class="catalog-head"><h3>Explore the catalog <span class="tag">FREE DISCOVERY</span></h3><label class="search"><span aria-hidden="true">⌕</span><input id="catalog-search" type="search" placeholder="Search pipelines" aria-label="Search ready pipelines"></label></div>
+      <div id="catalog" class="catalog"><p class="empty-catalog">Loading available pipelines…</p></div>
+      <div class="catalog-foot"><span class="mono muted">ONLY HEALTHY, READY PIPELINES ARE LISTED.</span><span id="receipt-count" class="mono muted">HCS RECEIPTS —</span></div>
+    </section>
+    <section id="how-it-works" class="section flow-section">
+      <div class="wrap"><div class="section-top"><div><p class="eyebrow"><span class="line"></span> 02 / FROM INTENT TO SERVICE</p><h2>A prompt goes in.<br><em>A marketplace grows.</em></h2></div><p class="section-description">One agent commissions the work.<br>The next agent puts it to use.</p></div>
+      <div class="flow-grid">
+        <article><div class="flow-visual prompt-visual"><span class="mono">YOU / 01</span><p>“Track USDC transfers<br>on Ethereum Sepolia.”</p><span class="mini-pill">↗ Intent received</span></div><div class="flow-copy"><span class="mono muted">01 — DESCRIBE</span><h3>Start with what you need.</h3><p>Your agent checks for an existing service, then uses Substreams skills to define the events, coverage and schema.</p></div></article>
+        <article><div class="flow-visual pipeline-visual"><span class="mono">GRAPHRAIL / 02</span><div class="pipeline-nodes"><span>{ }</span><i></i><span>▥</span><i></i><span>↗</span></div><span class="mono muted">DEFINE · BUILD · DEPLOY</span></div><div class="flow-copy"><span class="mono muted">02 — COMMISSION</span><h3>Give the intent a pipeline.</h3><p>Review the quote and pay on Hedera testnet. A background job builds and checks Substreams, then deploys a hosted SQL sink.</p></div></article>
+        <article><div class="flow-visual service-visual"><span class="mono">THE MARKETPLACE / 03</span><div class="service-card"><span class="service-glyph">⌘</span><div><strong>Your data service</strong><span>Discover → pay → query</span></div><span class="service-arrow">↗</span></div><span class="mini-pill">x402 · pay per use</span></div><div class="flow-copy"><span class="mono muted">03 — SHARE</span><h3>Build once. Serve many.</h3><p>Ready pipelines join the catalog. Other agents discover them for free and pay for each query, with verifiable receipts.</p></div></article>
+      </div><p class="flow-caption mono">ILLUSTRATIVE WORKFLOW · LIVE AVAILABILITY IS SHOWN ABOVE</p></div>
+    </section>
+    <section id="connect" class="section connect-section wrap">
+      <div class="connect-copy"><p class="eyebrow"><span class="line"></span> 03 / BRING YOUR OWN AGENT</p><h2>Your favorite agent.<br><em>A new superpower.</em></h2><p>Connect GraphRail over MCP. Your agent supplies the reasoning; GraphRail supplies the pipeline tools and Substreams skills.</p><ul class="check-list"><li>No GraphRail LLM API key</li><li>Free discovery, planning and status tools</li><li>Local wallet signing for paid calls</li></ul><a href="/setup.md" class="text-link" download>Download the setup guide <span>↗</span></a></div>
+      <div class="connection-panel"><div class="connection-top"><span class="mono"><span class="dot"></span> CONNECT VIA MCP</span><span class="mono muted">HTTP</span></div>
+        <div class="tabs" role="tablist" aria-label="Choose your agent"><button role="tab" id="tab-codex" aria-selected="true" aria-controls="agent-panel" data-agent="codex">Codex</button><button role="tab" id="tab-claude" aria-selected="false" aria-controls="agent-panel" data-agent="claude" tabindex="-1">Claude Code</button><button role="tab" id="tab-cursor" aria-selected="false" aria-controls="agent-panel" data-agent="cursor" tabindex="-1">Cursor</button><button role="tab" id="tab-other" aria-selected="false" aria-controls="agent-panel" data-agent="other" tabindex="-1">Other</button></div>
+        <div id="agent-panel" role="tabpanel" aria-labelledby="tab-codex"><div class="code-label"><span id="config-file" class="mono">~/.codex/config.toml</span><button id="copy-config" class="copy-button" disabled>Copy ↗</button></div><pre><code id="agent-code">Loading the MCP endpoint…</code></pre><p id="agent-help">Add this entry to your Codex configuration, then start a new session.</p><a id="agent-docs" href="https://developers.openai.com/codex/mcp/" target="_blank" rel="noreferrer">Official connection docs ↗</a></div>
+        <div class="endpoint-row"><span class="mono muted">SERVER URL</span><button id="copy-endpoint" class="copy-button" disabled>Copy URL ↗</button><code id="endpoint">Loading…</code></div>
+        <p id="endpoint-note" class="endpoint-note">Discovery needs no GraphRail login. Paid tools require an x402-capable client or wallet helper.</p>
+      </div>
+    </section>
+    <section id="guide" class="section guide-section"><div class="wrap"><div class="section-top"><div><p class="eyebrow"><span class="line"></span> 04 / YOUR FIRST CONVERSATION</p><h2>Meet your next<br><em>data source.</em></h2></div><p class="section-description">A simple way to test the connection.<br>No wallet or payment needed.</p></div>
+      <div class="quickstart-grid"><ol class="steps"><li><span>01</span><div><h3>Add the MCP server.</h3><p>Copy the configuration above into your agent. Reconnect or start a new session, and enable GraphRail’s tools.</p></div></li><li><span>02</span><div><h3>Make a free discovery call.</h3><p>Ask your agent to read the workflow and list available pipelines. An empty catalog is a valid result while indexing is paused.</p></div></li><li><span>03</span><div><h3>Plan before you pay.</h3><p>Request a Sepolia pipeline quote. Your agent supplies the verified ABI definition. Review its scope and both fees before commissioning.</p></div></li></ol>
+      <div class="prompt-panel"><div class="code-label"><span class="mono">PASTE INTO YOUR AGENT</span><button class="copy-button" id="copy-prompt">Copy prompt ↗</button></div><p id="starter-prompt">Use GraphRail. Read graphrail://skills/workflow, then call list_pipelines. Tell me which Ethereum Sepolia services are ready, their coverage, and their query prices. Keep this test free; do not commission or purchase a query.</p><div class="prompt-footer"><span class="dot"></span> A real tool call. Zero test HBAR.</div></div></div>
+      <div class="details-grid">
+        <details><summary>How do paid calls work?<span>+</span></summary><div><p>Ordinary MCP clients can discover and plan. To commission or query, your client also needs an x402 payment helper that signs with your Hedera testnet wallet locally.</p><p>GraphRail’s repository includes <code>examples/agent.ts</code>. Set <code>BUYER_ACCOUNT_ID</code>, <code>BUYER_PRIVATE_KEY</code> and <code>BUYER_MAX_PAYMENT</code> in your local <code>.env</code>, then run <code>npm run example:agent</code> after service availability is restored. Never put private keys into chat or MCP tool arguments.</p><p>Configured prices: <strong id="commission-price">—</strong> per build and <strong id="query-price">—</strong> per query. Failed builds retain receipts and need operator repair. Creator revenue splitting is not implemented.</p></div></details>
+        <details><summary>How do I run GraphRail myself?<span>+</span></summary><div><p>From the repository, install Node 22, copy <code>.env.example</code> to <code>.env</code>, and configure Supabase, Hedera testnet and Substreams. Keep credentials on the server.</p><p>Run <code>npm ci</code>, <code>npm run db:migrate</code>, <code>npm run setup:storage</code>, and <code>npm run setup:hedera</code> for a fresh install. Prepare a Market deployment slot after reviewing stdout output. Then run <code>npm run setup:check</code> and <code>npm run build</code>.</p><p>Start the API with <code>npm start</code> and the worker separately with <code>npm run worker:start</code> (Windows: <code>scripts\start-worker-windows.cmd</code>). The landing page and MCP share port 3000. See the <a href="/setup.md" download>full setup guide</a> for the sequence and existing-install notes.</p></div></details>
+        <details><summary>What is supported on testnet?<span>+</span></summary><div><p>Ethereum Sepolia event indexing, Supabase PostgreSQL storage, and Hedera testnet payments via Blocky. The compiler supports scalar ABI event fields. It rejects arrays, tuples, anonymous or overloaded events, custom aggregations and mainnet definitions.</p><p>Discovery and status are free. A ready service supports bounded GraphQL queries, up to 100 rows per entity read. Big integers remain exact decimal strings.</p></div></details>
+        <details><summary>Why are new builds paused?<span>+</span></summary><div><p>The current test deployment hit a StreamingFast database initialization error. Its runner is paused, and new commissions are disabled while that issue is resolved. The live status above reflects the current server configuration.</p><p>The build, Substreams stdout check, testnet commission and HCS receipt have been verified. Hosted indexing and paid queries have not yet passed live acceptance. You can still connect your agent, read the skills, discover services and plan a pipeline for free.</p></div></details>
+      </div></div>
+    </section>
+    <section class="closing wrap"><p class="eyebrow">SMALL PROMPT. SHARED INFRASTRUCTURE.</p><h2>Give your agent<br><em>something to build on.</em></h2><a class="button dark" href="#connect">Connect to GraphRail <span>↗</span></a><span class="closing-mark" aria-hidden="true">✳</span></section>
+  </main>
+  <footer class="footer wrap"><a class="brand" href="#"><img src="/icon.svg" width="26" height="26" alt="">GraphRail</a><p>Services register. Agents discover and pay.</p><div><a href="/setup.md" download>Setup guide ↗</a><a href="#network">Testnet status <span class="dot"></span></a></div></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <noscript><p class="no-js">Enable JavaScript to load live stats and connection snippets. The <a href="/setup.md">setup guide</a> is available without JavaScript.</p></noscript>
+</body>
+</html>

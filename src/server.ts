@@ -11,6 +11,7 @@ import type { Config } from "./config.js";
 import type { Catalog } from "./catalog.js";
 import { definitionSchema } from "./spec.js";
 import { result } from "./payments.js";
+import { mountPublicSite } from "./public-site.js";
 
 export function createMcp(catalog: Catalog) {
   const mcp = new McpServer(
@@ -262,6 +263,7 @@ export function createApp(c: Config, catalog: Catalog) {
     }
     next();
   });
+  mountPublicSite(app, catalog);
   app.get("/health", (_req, res) =>
     res.json({
       service: "GraphRail",

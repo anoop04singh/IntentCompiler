@@ -19,6 +19,7 @@
     "setup:hedera": "tsx scripts/setup-hedera.ts",
     "setup:slot": "tsx scripts/add-slot.ts",
     "example:agent": "tsx examples/agent.ts",
+    "example:discover": "tsx examples/discover.ts",
     "example:generate": "tsx scripts/generate-example.ts",
     "job:retry": "tsx scripts/retry-job.ts",
     "setup:market": "tsx scripts/setup-market.ts",
